@@ -50,10 +50,10 @@ public class ValidadorCliente {
     }
 
     //verifica se o cpf inserido pelo usuario ja nao esta cadastrado no sistema
-    public static void verificarCPFUnico(List<Cliente> clientes, Cliente cliente1) throws ClienteException {
-        for (Cliente cliente : clientes) {
-            if (cliente != null && clientes != null) {
-                if (cliente.getCpf().equals(cliente1.getCpf())) {
+    public static void verificarCPFUnico(List<String> CPF, Cliente cliente) throws ClienteException {
+        for (String cpfCadastrado : CPF) {
+            if (cliente != null && CPF != null) {
+                if (cliente.getCpf().equals(cpfCadastrado)) {
                     throw new ClienteException("CPF já cadastrado!");
                 }
             }

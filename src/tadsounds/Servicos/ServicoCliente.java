@@ -14,16 +14,16 @@ public class ServicoCliente {
     public static void cadastrarCliente(Cliente cliente) throws ClienteException, DataSourceException {
         //verifica a integridade dos dados inseridos pelo usuario
         ValidadorCliente.validar(cliente);
-        List<Cliente> listaClientes = null;
+        List<String> listaCPF = null;
         //solicita ao DAO o retorno de todos os clientes
         try {
-            listaClientes = DAOCliente.listar();
+            listaCPF = DAOCliente.listarCPF();
         } catch (Exception ex) {
 
         }
         //se a lista de clientes nao estiver vazia, verifica se o cpf inserido ja nao esta cadastrado
-        if (listaClientes != null) {
-            ValidadorCliente.verificarCPFUnico(listaClientes, cliente);
+        if (listaCPF != null) {
+            ValidadorCliente.verificarCPFUnico(listaCPF, cliente);
         }
         try {
             //se os dados estiverem corretos, solicita ao DAO a insercao dos dados 

@@ -42,7 +42,7 @@ public class DAOCliente {
             preparedStatement.setString(12, cliente.getTelefone());
             preparedStatement.setBoolean(13, true);
             preparedStatement.execute();
-        //fecha conexao com o banco de dados
+            //fecha conexao com o banco de dados
         } finally {
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
@@ -242,6 +242,33 @@ public class DAOCliente {
             preparedStatement.setBoolean(1, false);
             preparedStatement.setInt(2, id);
             preparedStatement.execute();
+        } finally {
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+    }
+
+    public static List<String> listarCPF() throws SQLException, Exception {
+        String sql = "SELECT Cliente.Cpf FROM Cliente";
+        List<String> listaCPF = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = Conexao.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                if (listaCPF == null) {
+                    listaCPF = new ArrayList<String>();
+                }
+                listaCPF.add(rs.getString("Cliente.Cpf"));
+            }
+            return listaCPF;
         } finally {
             if (preparedStatement != null && !preparedStatement.isClosed()) {
                 preparedStatement.close();
